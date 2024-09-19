@@ -1,5 +1,5 @@
 """
-WSGI config for config project.
+WSGI API_for_library_management for API_for_library_management project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'API_for_library_management.settings')
 
 application = get_wsgi_application()
