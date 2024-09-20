@@ -2,14 +2,50 @@ from django.db import models
 
 from authors.models import Author
 
+NULLABLE = {'null': True, 'blank': True}
+
 
 class Book(models.Model):
-    title = models.CharField(max_length=255)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
-    genre = models.CharField(max_length=100, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    published_date = models.DateField(blank=True, null=True)
-    isbn = models.CharField(max_length=13, unique=True, blank=True, null=True)
+    title = models.CharField(
+        max_length=255,
+        verbose_name="Название книги",
+        help_text="Введите название книги"
+    )
+    author = models.ForeignKey(
+        Author,
+        on_delete=models.CASCADE,
+        related_name='books',
+        verbose_name="Автор книги",
+        help_text="Выберите автора книги"
+    )
+    genre = models.CharField(
+        max_length=100,
+        verbose_name="Жанр книги",
+        help_text="Введите жанр книги",
+        **NULLABLE
+    )
+    description = models.TextField(
+        verbose_name="Описание книги",
+        help_text="Введите описание книги",
+        **NULLABLE
+    )
+    published_date = models.DateField(
+        verbose_name="Дата публикации книги",
+        help_text="Введите дату публикации книги",
+        **NULLABLE
+    )
+    isbn = models.CharField(
+        max_length=13,
+        unique=True,
+        verbose_name="ISBN книги",
+        help_text="Введите ISBN книги",
+        **NULLABLE
+    )
+
+    class Meta:
+        verbose_name = "Книга"
+        verbose_name_plural = "Книги"
+        ordering = ["title"]
 
     def __str__(self):
-        return self.title
+        return f"{self.title} - ISBN: {self.isbn}"
