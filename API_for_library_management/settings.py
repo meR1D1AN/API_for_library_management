@@ -22,14 +22,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # приложения проекта
-    # 'books',
-    # 'users',
-    # 'loans',
+    'books',
+    'authors',
+    'users',
+    'loans',
 
     # Сторонние библиотеки
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+    'drf_yasg',
 
 ]
 
@@ -110,9 +112,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
 }
 
 # JWT настройки
@@ -121,6 +120,14 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
-# CORS settings
+# CORS настройки
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+# Указываем, что будет использоваться наша модель User
+AUTH_USER_MODEL = 'users.User'
+
+#  Отключает кнопку "Django Login"
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+}

@@ -1,0 +1,12 @@
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import BookViewSet
+
+# Создаем роутер и регистрируем наш ViewSet
+router = DefaultRouter()
+router.register(r'', BookViewSet, basename='book')
+
+urlpatterns = [
+    # Включаем маршруты из роутера
+    path('', include(router.urls)),
+]
