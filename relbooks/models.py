@@ -38,3 +38,7 @@ class RelBook(models.Model):
 
     def __str__(self):
         return f"{self.book.title} - {self.user.username}"
+
+    # Метод для отслеживания статуса возврата
+    def is_returned(self):
+        return self.return_date is not None

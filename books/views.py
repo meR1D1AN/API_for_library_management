@@ -1,4 +1,5 @@
-from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from .models import Book
@@ -13,6 +14,12 @@ class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     pagination_class = StandardResultsSetPagination
+    # Включаем фильтрацию и поиск
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    # Указываем, по каким полям можно делать фильтрацию
+    filterset_fields = ['author', 'genre', 'published_date']
+    # Указываем, по каким полям можно делать поиск (поиск по названию)
+    search_fields = ['title']
 
     @swagger_auto_schema(
         operation_description="Получить список всех книг",
@@ -37,7 +44,6 @@ class BookViewSet(viewsets.ModelViewSet):
     )
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
-
 
     @swagger_auto_schema(
         operation_description="Создание новой книги",
