@@ -130,4 +130,6 @@ AUTH_USER_MODEL = 'users.User'
 #  Отключает кнопку "Django Login"
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
+    'OPERATIONS_SORTER': 'alpha',
+    'TAGS_SORTER': 'alpha',  # Сортировка тегов по алфавиту
 }

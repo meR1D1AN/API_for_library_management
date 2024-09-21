@@ -5,6 +5,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from users.views import CustomTokenObtainPairView, CustomTokenRefreshView
+
 schema_view = get_schema_view(
     openapi.Info(
         title="API для управления библиотекой",
@@ -36,8 +38,8 @@ urlpatterns = [
     path('api/authors/', include('authors.urls')),
     path('api/users/', include('users.urls')),
     path('api/relbooks/', include('relbooks.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
     path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger'),
     path('api/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='redoc'),
 ]

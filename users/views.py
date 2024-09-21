@@ -3,11 +3,35 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from books.paginators import StandardResultsSetPagination
 from .models import User
 from .serializers import UserSerializer
 from .permissions import IsOwnerOrAdmin
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    permission_classes = (AllowAny,)
+    @swagger_auto_schema(
+        tags=["1. Авторизация и пользователь"],
+        operation_description="Авторизация для получения токена",
+
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
+
+
+class CustomTokenRefreshView(TokenRefreshView):
+    permission_classes = (AllowAny,)
+    @swagger_auto_schema(
+        tags=["1. Авторизация и пользователь"],
+        operation_description="Авторизация для обновления токена",
+
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -18,7 +42,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Получить список всех пользователей",
         responses={200: UserSerializer(many=True)},
-        tags=["Пользователь"],
+        tags=["1. Авторизация и пользователь"],
         manual_parameters=[
             openapi.Parameter(
                 name='page',
@@ -40,18 +64,18 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Создание пользователя",
+        operation_description="Регистрация нового пользователя",
         request_body=UserSerializer,
         responses={201: UserSerializer},
-        tags=["Пользователь"],
+        tags=["1. Авторизация и пользователь"],
     )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Получить информаци о пользователе",
+        operation_description="Получить информацию о пользователе",
         responses={200: UserSerializer},
-        tags=["Пользователь"],
+        tags=["5. Пользователь"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
@@ -67,7 +91,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Обновить информацию о пользователе",
         responses={200: UserSerializer},
-        tags=["Пользователь"],
+        tags=["5. Пользователь"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
@@ -83,7 +107,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Частичное обновление информации о пользователе",
         responses={200: UserSerializer},
-        tags=["Пользователь"],
+        tags=["5. Пользователь"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
@@ -99,7 +123,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Удалить пользователя",
         responses={204: None},
-        tags=["Пользователь"],
+        tags=["5. Пользователь"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',

@@ -25,7 +25,7 @@ class BookViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Получить список всех книг",
         responses={200: BookSerializer(many=True)},
-        tags=["Книги"],
+        tags=["3. Книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='page',
@@ -50,7 +50,7 @@ class BookViewSet(viewsets.ModelViewSet):
         operation_description="Создание новой книги",
         request_body=BookSerializer,
         responses={201: BookSerializer},
-        tags=["Книги"],
+        tags=["3. Книги"],
     )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
@@ -58,7 +58,7 @@ class BookViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Получить информацию о книге",
         responses={200: BookSerializer},
-        tags=["Книги"],
+        tags=["3. Книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
@@ -75,7 +75,7 @@ class BookViewSet(viewsets.ModelViewSet):
         operation_description="Обновить информацию о книге",
 
         responses={200: BookSerializer},
-        tags=["Книги"],
+        tags=["3. Книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
@@ -91,7 +91,7 @@ class BookViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Частичное обновление информации о книге",
         responses={200: BookSerializer},
-        tags=["Книги"],
+        tags=["3. Книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
@@ -107,7 +107,7 @@ class BookViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Удалить книгу",
         responses={204: None},
-        tags=["Книги"],
+        tags=["3. Книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',

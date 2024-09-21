@@ -17,7 +17,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Получить список всех выдач книг",
         responses={200: RelBookSerializer(many=True)},
-        tags=["Выдача книги"],
+        tags=["4. Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='page',
@@ -42,7 +42,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
         operation_description="Создание выдачи книги",
         request_body=RelBookSerializer,
         responses={201: RelBookSerializer},
-        tags=["Выдача книги"],
+        tags=["4. Выдача книги"],
     )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
@@ -50,7 +50,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Получить информаци о выдачи книги",
         responses={200: RelBookSerializer},
-        tags=["Выдача книги"],
+        tags=["4. Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
@@ -67,7 +67,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
         operation_description="Обновить информацию о выдачи книги",
 
         responses={200: RelBookSerializer},
-        tags=["Выдача книги"],
+        tags=["4. Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
@@ -83,7 +83,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Частичное обновление информации о выдачи книги",
         responses={200: RelBookSerializer},
-        tags=["Выдача книги"],
+        tags=["4. Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
@@ -99,7 +99,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_description="Удалить выдачу книги",
         responses={204: None},
-        tags=["Выдача книги"],
+        tags=["4. Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
