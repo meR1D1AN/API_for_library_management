@@ -15,7 +15,10 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
     @swagger_auto_schema(
         tags=["1. Авторизация и пользователь"],
-        operation_description="Авторизация для получения токена",
+        operation_description="""
+        Авторизация для получения токена
+        Необходимо предоставить логин и пароль пользователя
+        """,
 
     )
     def post(self, request, *args, **kwargs):
@@ -27,7 +30,7 @@ class CustomTokenRefreshView(TokenRefreshView):
     permission_classes = (AllowAny,)
     @swagger_auto_schema(
         tags=["1. Авторизация и пользователь"],
-        operation_description="Авторизация для обновления токена",
+        operation_description="Авторизация для обновления токена, необходимо предоставить прошлый токен",
 
     )
     def post(self, request, *args, **kwargs):
@@ -64,7 +67,10 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Регистрация нового пользователя",
+        operation_description="""
+        Регистрация нового пользователя
+        Необходимые поля для заполнения: first_name, last_name, email, password, phone
+        """,
         request_body=UserSerializer,
         responses={201: UserSerializer},
         tags=["1. Авторизация и пользователь"],

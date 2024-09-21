@@ -39,7 +39,10 @@ class RelBookViewSet(viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Создание выдачи книги",
+        operation_description="""
+        Создание выдачи книги
+        Необходимо предоставить ID книги и ID пользователя. Дата выдачи ставится автоматически.
+        """,
         request_body=RelBookSerializer,
         responses={201: RelBookSerializer},
         tags=["4. Выдача книги"],

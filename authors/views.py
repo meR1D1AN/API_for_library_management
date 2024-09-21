@@ -39,7 +39,10 @@ class AuthorViewSet(viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Создание нового автора",
+        operation_description="""
+        Создание нового автора
+        Необходимое поле: name
+        """,
         request_body=AuthorSerializer,
         responses={201: AuthorSerializer},
         tags=["2. Авторы"],

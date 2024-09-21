@@ -23,4 +23,4 @@ class RelBookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RelBook
-        fields = ['id', 'book', 'book_id', 'user', 'user_id', 'release_date', 'return_date']
+        fields = ['id', 'book', 'book_id', 'user', 'user_id', 'return_date']

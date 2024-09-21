@@ -47,7 +47,10 @@ class BookViewSet(viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Создание новой книги",
+        operation_description="""
+        Создание новой книги
+        Необходимо передать имя книги, автора, жанра и дату публикации
+        """,
         request_body=BookSerializer,
         responses={201: BookSerializer},
         tags=["3. Книги"],
