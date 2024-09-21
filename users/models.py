@@ -11,13 +11,13 @@ class User(AbstractUser):
         max_length=60,
         verbose_name="Имя",
         help_text="Укажите имя",
+        default="Иван",
     )
     last_name = models.CharField(
         max_length=60,
         verbose_name="Фамилия",
         help_text="Укажите фамилию",
-        default="",
-        **NULLABLE
+        default="Иванов",
     )
     email = models.EmailField(
         unique=True,
@@ -25,10 +25,11 @@ class User(AbstractUser):
         help_text="Укажите электронную почту",
     )
     phone = models.CharField(
+        unique=True,
         max_length=15,
         verbose_name="Телефон",
-        help_text="Укажите телефон, начиная с +79991234567",
-        default="",
+        help_text="Укажите телефон начиная с +7",
+        default="+79991234567",
     )
     date_of_birth = models.DateField(
         verbose_name="Дата рождения",

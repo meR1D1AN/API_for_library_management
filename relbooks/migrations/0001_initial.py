@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('loan_date', models.DateField(auto_now_add=True)),
                 ('return_date', models.DateField(blank=True, null=True)),
-                ('book', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='loans', to='books.book')),
+                ('book', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='relbooks', to='books.book')),
             ],
         ),
     ]

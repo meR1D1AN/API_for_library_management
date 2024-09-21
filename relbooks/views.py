@@ -1,24 +1,22 @@
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import viewsets, status
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.response import Response
 
 from books.paginators import StandardResultsSetPagination
-from .models import User
-from .serializers import UserSerializer
-from .permissions import IsOwnerOrAdmin
+from .models import RelBook
+from .serializers import RelBookSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class RelBookViewSet(viewsets.ModelViewSet):
+    queryset = RelBook.objects.all()
+    serializer_class = RelBookSerializer
     pagination_class = StandardResultsSetPagination
 
     @swagger_auto_schema(
-        operation_description="Получить список всех пользователей",
-        responses={200: UserSerializer(many=True)},
-        tags=["Пользователь"],
+        operation_description="Получить список всех выдач книг",
+        responses={200: RelBookSerializer(many=True)},
+        tags=["Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='page',
@@ -40,24 +38,25 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Создание пользователя",
-        request_body=UserSerializer,
-        responses={201: UserSerializer},
-        tags=["Пользователь"],
+        operation_description="Создание выдачи книги",
+        request_body=RelBookSerializer,
+        responses={201: RelBookSerializer},
+        tags=["Выдача книги"],
     )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Получить информаци о пользователе",
-        responses={200: UserSerializer},
-        tags=["Пользователь"],
+        operation_description="Получить информаци о выдачи книги",
+        responses={200: RelBookSerializer},
+        tags=["Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Укажите ID пользователя",
+                description="Уникальный идентификатор выдачи книги",
+                default="Введите ID выдачи книги",
             ),
         ],
     )
@@ -65,15 +64,17 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().retrieve(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Обновить информацию о пользователе",
-        responses={200: UserSerializer},
-        tags=["Пользователь"],
+        operation_description="Обновить информацию о выдачи книги",
+
+        responses={200: RelBookSerializer},
+        tags=["Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Укажите ID пользователя",
+                description="Уникальный идентификатор выдачи книги",
+                default="Введите ID выдачи книги",
             ),
         ],
     )
@@ -81,15 +82,16 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().update(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Частичное обновление информации о пользователе",
-        responses={200: UserSerializer},
-        tags=["Пользователь"],
+        operation_description="Частичное обновление информации о выдачи книги",
+        responses={200: RelBookSerializer},
+        tags=["Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Укажите ID пользователя",
+                description="Уникальный идентификатор выдачи книги",
+                default="Введите ID выдачи книги",
             ),
         ],
     )
@@ -97,32 +99,23 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().partial_update(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_description="Удалить пользователя",
+        operation_description="Удалить выдачу книги",
         responses={204: None},
-        tags=["Пользователь"],
+        tags=["Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Укажите ID пользователя",
+                description="Уникальный идентификатор выдачи книги",
+                default="Введите ID выдачи книги",
             ),
         ],
     )
     def destroy(self, request, *args, **kwargs):
-        # Дополнительно проверим пароль при удалении, если нужно
-        if 'password' not in request.data:
-            return Response({"error": "Пароль обязателен для удаления пользователя."},
-                            status=status.HTTP_400_BAD_REQUEST)
-
-        # Валидация пароля
-        user = self.get_object()
-        if not user.check_password(request.data['password']):
-            return Response({"error": "Неправильный пароль."}, status=status.HTTP_400_BAD_REQUEST)
-
         return super().destroy(request, *args, **kwargs)
 
     def get_permissions(self):
-        if self.action in ['create', 'list']:
+        if self.action == 'create' or self.action == 'list':
             return [AllowAny()]
-        return [IsAuthenticated(), IsOwnerOrAdmin()]
+        return [IsAuthenticated()]

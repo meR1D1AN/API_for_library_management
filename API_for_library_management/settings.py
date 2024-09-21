@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'books',
     'authors',
     'users',
-    'loans',
+    'relbooks',
 
     # Сторонние библиотеки
     'rest_framework',
