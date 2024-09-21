@@ -2,6 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
+from users.permissions import IsOwnerOrAdmin
 from .models import Book
 from .paginators import StandardResultsSetPagination
 from .serializers import BookSerializer
@@ -63,8 +64,7 @@ class BookViewSet(viewsets.ModelViewSet):
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Уникальный идентификатор книги",
-                default="Введите ID книги",
+                description="Укажите ID книги",
             ),
         ],
     )
@@ -81,8 +81,7 @@ class BookViewSet(viewsets.ModelViewSet):
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Уникальный идентификатор книги",
-                default="Введите ID книги",
+                description="Укажите ID книги",
             ),
         ],
     )
@@ -98,8 +97,7 @@ class BookViewSet(viewsets.ModelViewSet):
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Уникальный идентификатор книги",
-                default="Введите ID книги",
+                description="Укажите ID книги",
             ),
         ],
     )
@@ -115,8 +113,7 @@ class BookViewSet(viewsets.ModelViewSet):
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Уникальный идентификатор книги",
-                default="Введите ID книги",
+                description="Укажите ID книги",
             ),
         ],
     )
@@ -124,6 +121,6 @@ class BookViewSet(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
 
     def get_permissions(self):
-        if self.action == 'create' or self.action == 'list':
+        if self.action == 'list':
             return [AllowAny()]
-        return [IsAuthenticated()]
+        return [IsAuthenticated(), IsOwnerOrAdmin()]

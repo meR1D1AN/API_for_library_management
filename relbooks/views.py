@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from books.paginators import StandardResultsSetPagination
+from users.permissions import IsOwnerOrAdmin
 from .models import RelBook
 from .serializers import RelBookSerializer
 
@@ -55,8 +56,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Уникальный идентификатор выдачи книги",
-                default="Введите ID выдачи книги",
+                description="Укажите ID выдачи книги",
             ),
         ],
     )
@@ -73,8 +73,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Уникальный идентификатор выдачи книги",
-                default="Введите ID выдачи книги",
+                description="Укажите ID выдачи книги",
             ),
         ],
     )
@@ -90,8 +89,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Уникальный идентификатор выдачи книги",
-                default="Введите ID выдачи книги",
+                description="Укажите ID выдачи книги",
             ),
         ],
     )
@@ -107,8 +105,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
                 name='id',
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
-                description="Уникальный идентификатор выдачи книги",
-                default="Введите ID выдачи книги",
+                description="Укажите ID выдачи книги",
             ),
         ],
     )
@@ -116,6 +113,6 @@ class RelBookViewSet(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
 
     def get_permissions(self):
-        if self.action == 'create' or self.action == 'list':
+        if self.action == 'list':
             return [AllowAny()]
-        return [IsAuthenticated()]
+        return [IsAuthenticated(), IsOwnerOrAdmin()]

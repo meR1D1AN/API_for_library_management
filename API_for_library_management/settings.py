@@ -116,7 +116,7 @@ REST_FRAMEWORK = {
 
 # JWT настройки
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),  # на время теста 60 минут живёт пусть токен
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
