@@ -4,6 +4,7 @@ from authors.models import Author
 from authors.serializers import AuthorSerializer
 from .models import Book
 
+
 class BookSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
     author_id = serializers.PrimaryKeyRelatedField(

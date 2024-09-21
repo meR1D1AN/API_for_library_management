@@ -13,6 +13,7 @@ from .permissions import IsOwnerOrAdmin
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
+
     @swagger_auto_schema(
         tags=["1. Авторизация и пользователь"],
         operation_description="""
@@ -25,9 +26,9 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         return super().post(request, *args, **kwargs)
 
 
-
 class CustomTokenRefreshView(TokenRefreshView):
     permission_classes = (AllowAny,)
+
     @swagger_auto_schema(
         tags=["1. Авторизация и пользователь"],
         operation_description="Авторизация для обновления токена, необходимо предоставить прошлый токен",

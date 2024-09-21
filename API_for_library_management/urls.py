@@ -3,7 +3,6 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from users.views import CustomTokenObtainPairView, CustomTokenRefreshView
 
@@ -12,7 +11,8 @@ schema_view = get_schema_view(
         title="API для управления библиотекой",
         default_version='v1.03',
         description="""
-        API для управления библиотекой предоставляет возможности для управления книгами, авторами и пользователями, а также для отслеживания выдачи книг пользователям. 
+        API для управления библиотекой предоставляет возможности для управления книгами, авторами и пользователями,
+        а также для отслеживания выдачи книг пользователям.
         Основные функции API:
         - Поиск книг по различным критериям (название, автор, жанр и т.д.).
         - Получение списка всех книг.
@@ -23,7 +23,6 @@ schema_view = get_schema_view(
         - Регистрация и авторизация пользователей.
         - Отслеживание статуса возврата книги.
         - Запись информации о выдаче книги пользователю.
-        
         Аутентификация и авторизация пользователей осуществляется с использованием JWT токенов.
         """,
         contact=openapi.Contact(email="nikita@mer1d1an.ru"),

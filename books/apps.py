@@ -6,4 +6,3 @@ class BooksConfig(AppConfig):
     name = 'books'
     verbose_name = "Книга"
     verbose_name_plural = "Книги"
-

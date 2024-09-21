@@ -1,5 +1,4 @@
 from django.core.management import BaseCommand
-from django.template.defaultfilters import first
 
 from users.models import User
 
