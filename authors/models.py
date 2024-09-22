@@ -6,8 +6,8 @@ NULLABLE = {'null': True, 'blank': True}
 class Author(models.Model):
     name = models.CharField(
         max_length=255,
-        verbose_name="Ф. И. О. автора книги",
-        help_text="Введите полное Ф. И. О. автора книги"
+        verbose_name="Имя и фамилия автора книги",
+        help_text="Введите имя и фамилию автора книги"
     )
     bio = models.TextField(
         verbose_name="Биография",
@@ -16,7 +16,7 @@ class Author(models.Model):
     )
     date_of_birth = models.DateField(
         verbose_name="Дата рождения",
-        help_text="Введите дату рождения, в формате ГОД-МЕСЯЦ-ДЕНЬ",
+        help_text="Введите дату рождения автора, в формате ГОД-МЕСЯЦ-ДЕНЬ, если она известна",
         **NULLABLE
     )
 

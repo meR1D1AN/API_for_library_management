@@ -19,7 +19,7 @@ class Book(models.Model):
         help_text="Выберите автора книги"
     )
     genre = models.CharField(
-        max_length=100,
+        max_length=255,
         verbose_name="Жанр книги",
         help_text="Введите жанр книги",
         **NULLABLE
@@ -29,16 +29,17 @@ class Book(models.Model):
         help_text="Введите описание книги",
         **NULLABLE
     )
-    published_date = models.DateField(
+    published_date = models.CharField(
+        max_length=10,
         verbose_name="Дата публикации книги",
-        help_text="Введите дату публикации книги",
+        help_text="Введите год публикации книги, или же полную дату, в формате ДД.ММ.ГГГГ",
         **NULLABLE
     )
     isbn = models.CharField(
         max_length=13,
         unique=True,
         verbose_name="ISBN книги",
-        help_text="Введите ISBN книги",
+        help_text="Введите ISBN книги, если знаете его",
         **NULLABLE
     )
 
@@ -48,4 +49,4 @@ class Book(models.Model):
         ordering = ["title"]
 
     def __str__(self):
-        return f"{self.title} - ISBN: {self.isbn}"
+        return f"{self.title} - {self.author}"

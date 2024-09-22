@@ -132,3 +132,8 @@ SWAGGER_SETTINGS = {
     'OPERATIONS_SORTER': 'alpha',
     'TAGS_SORTER': 'alpha',  # Сортировка тегов по алфавиту
 }
+
+REDOC_SETTINGS = {
+    'TAGS_SORTER': 'alpha',  # Сортировка тегов по алфавиту
+    'OPERATIONS_SORTER': 'alpha',
+}

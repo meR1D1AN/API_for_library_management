@@ -47,7 +47,7 @@
   ```
 - Добавление данных в базу данных  
 - ```bash
-  python manage.py loaddata fixtures/habits.json
+  python manage.py loaddata static/fixture/test_info.json
   ```
 6. Запуск сервера
 - ```bash
