@@ -154,6 +154,6 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
 
     def get_permissions(self):
-        if self.action in ['create', 'list']:
+        if self.action == 'create':
             return [AllowAny()]
         return [IsAuthenticated(), IsOwnerOrAdmin()]
