@@ -3,13 +3,13 @@ from rest_framework import serializers
 from books.models import Book
 from users.models import User
 from .models import RelBook
-from books.serializers import BookSerializer
-from users.serializers import UserSerializer
+from books.serializers import BookListSerializer
+from users.serializers import UserListSerializer
 
 
 class RelBookSerializer(serializers.ModelSerializer):
-    book = BookSerializer(read_only=True)
-    user = UserSerializer(read_only=True)
+    book = BookListSerializer(read_only=True)
+    user = UserListSerializer(read_only=True)
     book_id = serializers.PrimaryKeyRelatedField(
         queryset=Book.objects.all(),
         source='book',
@@ -23,4 +23,4 @@ class RelBookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RelBook
-        fields = ['id', 'book', 'book_id', 'user', 'user_id', 'return_date']
+        fields = ['id', 'release_date', 'book', 'book_id', 'user', 'user_id', 'return_date']
