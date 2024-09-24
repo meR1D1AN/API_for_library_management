@@ -6,7 +6,7 @@ authors = ["Никита Шидогубов <nikita.sh@gklifts.ru>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
+python = ">=3.10.3,<3.13"
 python-dotenv = "^1.0.1"
 psycopg2-binary = "^2.9.9"
 django = "^5.1.1"
