@@ -1,8 +1,11 @@
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
 
+from books.models import Book
 from books.paginators import StandardResultsSetPagination
 from users.permissions import IsOwnerOrAdmin
 from .models import RelBook
@@ -48,7 +51,27 @@ class RelBookViewSet(viewsets.ModelViewSet):
         tags=["4. Выдача книги"],
     )
     def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+        data = request.data
+        book = Book.objects.get(id=data['book'])
+
+        # Проверка, что книга доступна для выдачи
+        if book.count == 0:
+            raise ValidationError(f"Книга {book.title} отсутствует в наличии.")
+
+        response = super().create(request, *args, **kwargs)
+
+        # Уменьшение количества книг после успешного создания выдачи
+        book.count -= 1
+        book.save()
+
+        # Проверка, осталось ли 5 книг
+        if book.count == 5:
+            return Response({
+                "message": f"Книга '{book.title}' выдана. Осталось 5 экземпляров.",
+                "data": response.data
+            }, status=status.HTTP_201_CREATED)
+
+        return response
 
     @swagger_auto_schema(
         operation_description="Получить информаци о выдачи книги",
@@ -81,6 +104,15 @@ class RelBookViewSet(viewsets.ModelViewSet):
         ],
     )
     def update(self, request, *args, **kwargs):
+        # Метод для обновления информации о выдаче книги
+        instance = self.get_object()
+
+        # Проверка, была ли возвращена книга
+        if 'return_date' in request.data and request.data['return_date']:
+            if not instance.return_date:  # Если книга была возвращена впервые
+                instance.book.count += 1
+                instance.book.save()
+
         return super().update(request, *args, **kwargs)
 
     @swagger_auto_schema(
