@@ -2,14 +2,14 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets, status
 from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.response import Response
 
 from books.models import Book
 from books.paginators import StandardResultsSetPagination
 from users.permissions import IsOwnerOrAdmin
 from .models import RelBook
-from .serializers import RelBookSerializer
+from .serializers import RelBookSerializer, RelBookCreateSerializer
 
 
 class RelBookViewSet(viewsets.ModelViewSet):
@@ -46,13 +46,14 @@ class RelBookViewSet(viewsets.ModelViewSet):
         Создание выдачи книги
         Необходимо предоставить ID книги и ID пользователя. Дата выдачи ставится автоматически.
         """,
-        request_body=RelBookSerializer,
-        responses={201: RelBookSerializer},
+        request_body=RelBookCreateSerializer,
+        responses={201: RelBookCreateSerializer},
         tags=["4. Выдача книги"],
     )
     def create(self, request, *args, **kwargs):
+        # return super().create(request, *args, **kwargs)
         data = request.data
-        book = Book.objects.get(id=data['book'])
+        book = Book.objects.get(id=data['book_id'])
 
         # Проверка, что книга доступна для выдачи
         if book.count == 0:
@@ -148,6 +149,8 @@ class RelBookViewSet(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
 
     def get_permissions(self):
-        if self.action == 'list':
+        if self.action == 'create':
             return [AllowAny()]
+        elif self.action == 'list':
+            return [IsAdminUser()]
         return [IsAuthenticated(), IsOwnerOrAdmin()]

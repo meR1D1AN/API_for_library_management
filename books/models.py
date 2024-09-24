@@ -6,6 +6,7 @@ NULLABLE = {'null': True, 'blank': True}
 
 
 class Book(models.Model):
+    id = models.BigAutoField(primary_key=True)
     title = models.CharField(
         max_length=255,
         verbose_name="Название книги",
