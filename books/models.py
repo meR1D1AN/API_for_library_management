@@ -42,6 +42,11 @@ class Book(models.Model):
         help_text="Введите ISBN книги, если знаете его",
         **NULLABLE
     )
+    count = models.PositiveIntegerField(
+        verbose_name="Количество книг",
+        help_text="Введите количество книг в наличии",
+        default=1
+    )
 
     class Meta:
         verbose_name = "Книга"
