@@ -4,7 +4,7 @@ from .views import AuthorViewSet
 
 # Создаем роутер и регистрируем наш ViewSet
 router = DefaultRouter()
-router.register(r'', AuthorViewSet, basename='author')
+router.register(r'', AuthorViewSet, basename='authors')
 
 urlpatterns = [
     # Включаем маршруты из роутера
