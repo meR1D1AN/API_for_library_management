@@ -30,7 +30,7 @@
 - ```bash
   cp .env.sample .env
   ```
-4. Создание и примените миграции:
+4. Применение миграции:
 
 - ```bash
   python manage.py migrate
