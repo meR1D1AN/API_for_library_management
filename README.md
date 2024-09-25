@@ -78,6 +78,10 @@
 - ```bash
   docker-compose exec app python manage.py csu
   ```
+Для добавления тестовых данных в базу данных
+- ```bash
+  docker-compose exec app python manage.py loaddata static/fixture/test_info.json
+  ```
 
 ## Документация API
 
