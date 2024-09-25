@@ -41,6 +41,30 @@ class BookViewSet(viewsets.ModelViewSet):
                 description="Количество элементов на странице",
                 default=10
             ),
+            openapi.Parameter(
+                name='author',
+                in_=openapi.IN_QUERY,
+                type=openapi.TYPE_STRING,
+                description="Фильтр по автору",
+            ),
+            openapi.Parameter(
+                name='genre',
+                in_=openapi.IN_QUERY,
+                type=openapi.TYPE_STRING,
+                description="Фильтр по жанру",
+            ),
+            openapi.Parameter(
+                name='published_date',
+                in_=openapi.IN_QUERY,
+                type=openapi.TYPE_STRING,
+                description="Фильтр по дате публикации",
+            ),
+            openapi.Parameter(
+                name='search',
+                in_=openapi.IN_QUERY,
+                type=openapi.TYPE_STRING,
+                description="Поиск по названию",
+            ),
         ]
     )
     def list(self, request, *args, **kwargs):

@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import Author
-from books.book_serializers import BookListSerializer
+from books.book_serializers import BookShotSerializer
 
 
 class AuthorSerializer(serializers.ModelSerializer):
-    books = BookListSerializer(many=True, read_only=True)
+    books = BookShotSerializer(many=True, read_only=True)
 
     class Meta:
         model = Author
