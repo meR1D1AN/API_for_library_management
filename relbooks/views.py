@@ -151,8 +151,6 @@ class RelBookViewSet(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
 
     def get_permissions(self):
-        if self.action == "create":
-            return [AllowAny()]
-        elif self.action == "list":
+        if self.action == ["list", "destroy"]:
             return [IsAdminUser()]
         return [IsAuthenticated(), IsOwnerOrAdmin()]
