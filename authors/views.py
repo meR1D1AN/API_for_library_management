@@ -20,20 +20,20 @@ class AuthorViewSet(viewsets.ModelViewSet):
         tags=["2. Авторы"],
         manual_parameters=[
             openapi.Parameter(
-                name='page',
+                name="page",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_INTEGER,
                 description="Номер страницы",
-                default=1
+                default=1,
             ),
             openapi.Parameter(
-                name='page_size',
+                name="page_size",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_INTEGER,
                 description="Количество элементов на странице",
-                default=10
+                default=10,
             ),
-        ]
+        ],
     )
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
@@ -56,7 +56,7 @@ class AuthorViewSet(viewsets.ModelViewSet):
         tags=["2. Авторы"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID автора",
@@ -68,12 +68,11 @@ class AuthorViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(
         operation_description="Обновить информацию об авторе",
-
         responses={200: AuthorSerializer},
         tags=["2. Авторы"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID автора",
@@ -89,7 +88,7 @@ class AuthorViewSet(viewsets.ModelViewSet):
         tags=["2. Авторы"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID автора",
@@ -105,7 +104,7 @@ class AuthorViewSet(viewsets.ModelViewSet):
         tags=["2. Авторы"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID автора",
@@ -116,6 +115,6 @@ class AuthorViewSet(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
 
     def get_permissions(self):
-        if self.action == 'list':
+        if self.action == "list":
             return [AllowAny()]
         return [IsAuthenticated(), IsOwnerOrAdmin()]

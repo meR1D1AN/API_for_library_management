@@ -7,22 +7,52 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Author',
+            name="Author",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Введите имя и фамилию автора книги', max_length=255, verbose_name='Имя и фамилия автора книги')),
-                ('bio', models.TextField(blank=True, help_text='Введите текст биографии', null=True, verbose_name='Биография')),
-                ('date_of_birth', models.DateField(blank=True, help_text='Введите дату рождения автора, в формате ГОД-МЕСЯЦ-ДЕНЬ, если она известна', null=True, verbose_name='Дата рождения')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Введите имя и фамилию автора книги",
+                        max_length=255,
+                        verbose_name="Имя и фамилия автора книги",
+                    ),
+                ),
+                (
+                    "bio",
+                    models.TextField(
+                        blank=True,
+                        help_text="Введите текст биографии",
+                        null=True,
+                        verbose_name="Биография",
+                    ),
+                ),
+                (
+                    "date_of_birth",
+                    models.DateField(
+                        blank=True,
+                        help_text="Введите дату рождения автора, в формате ГОД-МЕСЯЦ-ДЕНЬ, если она известна",
+                        null=True,
+                        verbose_name="Дата рождения",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Автор',
-                'verbose_name_plural': 'Авторы',
-                'ordering': ['name'],
+                "verbose_name": "Автор",
+                "verbose_name_plural": "Авторы",
+                "ordering": ["name"],
             },
         ),
     ]

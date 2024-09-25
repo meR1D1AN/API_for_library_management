@@ -18,9 +18,9 @@ class BookViewSet(viewsets.ModelViewSet):
     # Включаем фильтрацию и поиск
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     # Указываем, по каким полям можно делать фильтрацию
-    filterset_fields = ['author', 'genre', 'published_date']
+    filterset_fields = ["author", "genre", "published_date"]
     # Указываем, по каким полям можно делать поиск (поиск по названию)
-    search_fields = ['title']
+    search_fields = ["title"]
 
     @swagger_auto_schema(
         operation_description="Получить список всех книг",
@@ -28,44 +28,44 @@ class BookViewSet(viewsets.ModelViewSet):
         tags=["3. Книги"],
         manual_parameters=[
             openapi.Parameter(
-                name='page',
+                name="page",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_INTEGER,
                 description="Номер страницы",
-                default=1
+                default=1,
             ),
             openapi.Parameter(
-                name='page_size',
+                name="page_size",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_INTEGER,
                 description="Количество элементов на странице",
-                default=10
+                default=10,
             ),
             openapi.Parameter(
-                name='author',
+                name="author",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_STRING,
                 description="Фильтр по автору",
             ),
             openapi.Parameter(
-                name='genre',
+                name="genre",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_STRING,
                 description="Фильтр по жанру",
             ),
             openapi.Parameter(
-                name='published_date',
+                name="published_date",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_STRING,
                 description="Фильтр по дате публикации",
             ),
             openapi.Parameter(
-                name='search',
+                name="search",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_STRING,
                 description="Поиск по названию",
             ),
-        ]
+        ],
     )
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
@@ -88,7 +88,7 @@ class BookViewSet(viewsets.ModelViewSet):
         tags=["3. Книги"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID книги",
@@ -100,12 +100,11 @@ class BookViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(
         operation_description="Обновить информацию о книге",
-
         responses={200: BookSerializer},
         tags=["3. Книги"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID книги",
@@ -121,7 +120,7 @@ class BookViewSet(viewsets.ModelViewSet):
         tags=["3. Книги"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID книги",
@@ -137,7 +136,7 @@ class BookViewSet(viewsets.ModelViewSet):
         tags=["3. Книги"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID книги",
@@ -148,6 +147,6 @@ class BookViewSet(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
 
     def get_permissions(self):
-        if self.action == 'list':
+        if self.action == "list":
             return [AllowAny()]
         return [IsAuthenticated(), IsOwnerOrAdmin()]

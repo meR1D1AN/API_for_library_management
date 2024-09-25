@@ -1,23 +1,21 @@
 from django.db import models
 
-NULLABLE = {'null': True, 'blank': True}
+NULLABLE = {"null": True, "blank": True}
 
 
 class Author(models.Model):
     name = models.CharField(
         max_length=255,
         verbose_name="Имя и фамилия автора книги",
-        help_text="Введите имя и фамилию автора книги"
+        help_text="Введите имя и фамилию автора книги",
     )
     bio = models.TextField(
-        verbose_name="Биография",
-        help_text="Введите текст биографии",
-        **NULLABLE
+        verbose_name="Биография", help_text="Введите текст биографии", **NULLABLE
     )
     date_of_birth = models.DateField(
         verbose_name="Дата рождения",
         help_text="Введите дату рождения автора, в формате ГОД-МЕСЯЦ-ДЕНЬ, если она известна",
-        **NULLABLE
+        **NULLABLE,
     )
 
     class Meta:

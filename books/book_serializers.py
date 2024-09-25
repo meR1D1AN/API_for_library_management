@@ -8,10 +8,10 @@ class BookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-        fields = ['id', 'title', 'author']
+        fields = ["id", "title", "author"]
 
 
 class BookShotSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ['id', 'title']
+        fields = ["id", "title"]

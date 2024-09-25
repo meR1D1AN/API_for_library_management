@@ -9,26 +9,85 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('authors', '0001_initial'),
+        ("authors", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Book',
+            name="Book",
             fields=[
-                ('id', models.BigAutoField(primary_key=True, serialize=False)),
-                ('title', models.CharField(help_text='Введите название книги', max_length=255, verbose_name='Название книги')),
-                ('genre', models.CharField(blank=True, help_text='Введите жанр книги', max_length=255, null=True, verbose_name='Жанр книги')),
-                ('description', models.TextField(blank=True, help_text='Введите описание книги', null=True, verbose_name='Описание книги')),
-                ('published_date', models.CharField(blank=True, help_text='Введите год публикации книги, или же полную дату, в формате ДД.ММ.ГГГГ', max_length=10, null=True, verbose_name='Дата публикации книги')),
-                ('isbn', models.CharField(blank=True, help_text='Введите ISBN книги, если знаете его', max_length=13, null=True, unique=True, verbose_name='ISBN книги')),
-                ('count', models.PositiveIntegerField(default=1, help_text='Введите количество книг в наличии', verbose_name='Количество книг')),
-                ('author', models.ForeignKey(help_text='Выберите автора книги', on_delete=django.db.models.deletion.CASCADE, related_name='books', to='authors.author', verbose_name='Автор книги')),
+                ("id", models.BigAutoField(primary_key=True, serialize=False)),
+                (
+                    "title",
+                    models.CharField(
+                        help_text="Введите название книги",
+                        max_length=255,
+                        verbose_name="Название книги",
+                    ),
+                ),
+                (
+                    "genre",
+                    models.CharField(
+                        blank=True,
+                        help_text="Введите жанр книги",
+                        max_length=255,
+                        null=True,
+                        verbose_name="Жанр книги",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(
+                        blank=True,
+                        help_text="Введите описание книги",
+                        null=True,
+                        verbose_name="Описание книги",
+                    ),
+                ),
+                (
+                    "published_date",
+                    models.CharField(
+                        blank=True,
+                        help_text="Введите год публикации книги, или же полную дату, в формате ДД.ММ.ГГГГ",
+                        max_length=10,
+                        null=True,
+                        verbose_name="Дата публикации книги",
+                    ),
+                ),
+                (
+                    "isbn",
+                    models.CharField(
+                        blank=True,
+                        help_text="Введите ISBN книги, если знаете его",
+                        max_length=13,
+                        null=True,
+                        unique=True,
+                        verbose_name="ISBN книги",
+                    ),
+                ),
+                (
+                    "count",
+                    models.PositiveIntegerField(
+                        default=1,
+                        help_text="Введите количество книг в наличии",
+                        verbose_name="Количество книг",
+                    ),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        help_text="Выберите автора книги",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="books",
+                        to="authors.author",
+                        verbose_name="Автор книги",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Книга',
-                'verbose_name_plural': 'Книги',
-                'ordering': ['title'],
+                "verbose_name": "Книга",
+                "verbose_name_plural": "Книги",
+                "ordering": ["title"],
             },
         ),
     ]

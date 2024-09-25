@@ -9,22 +9,54 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('books', '0001_initial'),
+        ("books", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='RelBook',
+            name="RelBook",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('release_date', models.DateField(auto_now_add=True, help_text='Введите дату выдачи книги', verbose_name='Дата выдачи')),
-                ('return_date', models.DateField(blank=True, help_text='Введите дату возврата книги', null=True, verbose_name='Дата возврата')),
-                ('book', models.ForeignKey(help_text='Выберите книгу', on_delete=django.db.models.deletion.CASCADE, related_name='relbooks', to='books.book', verbose_name='Книга')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "release_date",
+                    models.DateField(
+                        auto_now_add=True,
+                        help_text="Введите дату выдачи книги",
+                        verbose_name="Дата выдачи",
+                    ),
+                ),
+                (
+                    "return_date",
+                    models.DateField(
+                        blank=True,
+                        help_text="Введите дату возврата книги",
+                        null=True,
+                        verbose_name="Дата возврата",
+                    ),
+                ),
+                (
+                    "book",
+                    models.ForeignKey(
+                        help_text="Выберите книгу",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="relbooks",
+                        to="books.book",
+                        verbose_name="Книга",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Выдача книги',
-                'verbose_name_plural': 'Выдачи книг',
-                'ordering': ['book'],
+                "verbose_name": "Выдача книги",
+                "verbose_name_plural": "Выдачи книг",
+                "ordering": ["book"],
             },
         ),
     ]

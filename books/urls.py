@@ -4,9 +4,9 @@ from .views import BookViewSet
 
 # Создаем роутер и регистрируем наш ViewSet
 router = DefaultRouter()
-router.register(r'', BookViewSet, basename='book')
+router.register(r"", BookViewSet, basename="book")
 
 urlpatterns = [
     # Включаем маршруты из роутера
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]

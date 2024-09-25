@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-NULLABLE = {'null': True, 'blank': True}
+NULLABLE = {"null": True, "blank": True}
 
 
 class User(AbstractUser):
@@ -32,14 +32,10 @@ class User(AbstractUser):
         default="+79991234567",
     )
     date_of_birth = models.DateField(
-        verbose_name="Дата рождения",
-        help_text="Укажите дату рождения",
-        **NULLABLE
+        verbose_name="Дата рождения", help_text="Укажите дату рождения", **NULLABLE
     )
     bio = models.TextField(
-        verbose_name="О себе",
-        help_text="Расскажите о себе",
-        **NULLABLE
+        verbose_name="О себе", help_text="Расскажите о себе", **NULLABLE
     )
 
     USERNAME_FIELD = "email"

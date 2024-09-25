@@ -10,14 +10,20 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('relbooks', '0001_initial'),
+        ("relbooks", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='relbook',
-            name='user',
-            field=models.ForeignKey(help_text='Выберите пользователя', on_delete=django.db.models.deletion.CASCADE, related_name='relbooks', to=settings.AUTH_USER_MODEL, verbose_name='Пользователь'),
+            model_name="relbook",
+            name="user",
+            field=models.ForeignKey(
+                help_text="Выберите пользователя",
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="relbooks",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Пользователь",
+            ),
         ),
     ]

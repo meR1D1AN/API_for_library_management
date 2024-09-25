@@ -23,20 +23,20 @@ class RelBookViewSet(viewsets.ModelViewSet):
         tags=["4. Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
-                name='page',
+                name="page",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_INTEGER,
                 description="Номер страницы",
-                default=1
+                default=1,
             ),
             openapi.Parameter(
-                name='page_size',
+                name="page_size",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_INTEGER,
                 description="Количество элементов на странице",
-                default=10
+                default=10,
             ),
-        ]
+        ],
     )
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
@@ -53,7 +53,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         # return super().create(request, *args, **kwargs)
         data = request.data
-        book = Book.objects.get(id=data['book_id'])
+        book = Book.objects.get(id=data["book_id"])
 
         # Проверка, что книга доступна для выдачи
         if book.count == 0:
@@ -67,10 +67,13 @@ class RelBookViewSet(viewsets.ModelViewSet):
 
         # Проверка, осталось ли 5 книг
         if book.count == 5:
-            return Response({
-                "message": f"Книга '{book.title}' выдана. Осталось 5 экземпляров.",
-                "data": response.data
-            }, status=status.HTTP_201_CREATED)
+            return Response(
+                {
+                    "message": f"Книга '{book.title}' выдана. Осталось 5 экземпляров.",
+                    "data": response.data,
+                },
+                status=status.HTTP_201_CREATED,
+            )
 
         return response
 
@@ -80,7 +83,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
         tags=["4. Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID выдачи книги",
@@ -92,12 +95,11 @@ class RelBookViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(
         operation_description="Обновить информацию о выдачи книги",
-
         responses={200: RelBookSerializer},
         tags=["4. Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID выдачи книги",
@@ -109,7 +111,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
 
         # Проверка, была ли возвращена книга
-        if 'return_date' in request.data and request.data['return_date']:
+        if "return_date" in request.data and request.data["return_date"]:
             if not instance.return_date:  # Если книга была возвращена впервые
                 instance.book.count += 1
                 instance.book.save()
@@ -122,7 +124,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
         tags=["4. Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID выдачи книги",
@@ -138,7 +140,7 @@ class RelBookViewSet(viewsets.ModelViewSet):
         tags=["4. Выдача книги"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID выдачи книги",
@@ -149,8 +151,8 @@ class RelBookViewSet(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
 
     def get_permissions(self):
-        if self.action == 'create':
+        if self.action == "create":
             return [AllowAny()]
-        elif self.action == 'list':
+        elif self.action == "list":
             return [IsAdminUser()]
         return [IsAuthenticated(), IsOwnerOrAdmin()]

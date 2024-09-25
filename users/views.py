@@ -20,7 +20,6 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         Авторизация для получения токена
         Необходимо предоставить логин и пароль пользователя
         """,
-
     )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
@@ -32,7 +31,6 @@ class CustomTokenRefreshView(TokenRefreshView):
     @swagger_auto_schema(
         tags=["1. Авторизация и пользователь"],
         operation_description="Авторизация для обновления токена, необходимо предоставить прошлый токен",
-
     )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
@@ -49,20 +47,20 @@ class UserViewSet(viewsets.ModelViewSet):
         tags=["1. Авторизация и пользователь"],
         manual_parameters=[
             openapi.Parameter(
-                name='page',
+                name="page",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_INTEGER,
                 description="Номер страницы",
-                default=1
+                default=1,
             ),
             openapi.Parameter(
-                name='page_size',
+                name="page_size",
                 in_=openapi.IN_QUERY,
                 type=openapi.TYPE_INTEGER,
                 description="Количество элементов на странице",
-                default=10
+                default=10,
             ),
-        ]
+        ],
     )
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
@@ -85,7 +83,7 @@ class UserViewSet(viewsets.ModelViewSet):
         tags=["5. Пользователь"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID пользователя",
@@ -101,7 +99,7 @@ class UserViewSet(viewsets.ModelViewSet):
         tags=["5. Пользователь"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID пользователя",
@@ -117,7 +115,7 @@ class UserViewSet(viewsets.ModelViewSet):
         tags=["5. Пользователь"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID пользователя",
@@ -133,7 +131,7 @@ class UserViewSet(viewsets.ModelViewSet):
         tags=["5. Пользователь"],
         manual_parameters=[
             openapi.Parameter(
-                name='id',
+                name="id",
                 in_=openapi.IN_PATH,
                 type=openapi.TYPE_INTEGER,
                 description="Укажите ID пользователя",
@@ -142,18 +140,22 @@ class UserViewSet(viewsets.ModelViewSet):
     )
     def destroy(self, request, *args, **kwargs):
         # Дополнительно проверим пароль при удалении, если нужно
-        if 'password' not in request.data:
-            return Response({"error": "Пароль обязателен для удаления пользователя."},
-                            status=status.HTTP_400_BAD_REQUEST)
+        if "password" not in request.data:
+            return Response(
+                {"error": "Пароль обязателен для удаления пользователя."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         # Валидация пароля
         user = self.get_object()
-        if not user.check_password(request.data['password']):
-            return Response({"error": "Неправильный пароль."}, status=status.HTTP_400_BAD_REQUEST)
+        if not user.check_password(request.data["password"]):
+            return Response(
+                {"error": "Неправильный пароль."}, status=status.HTTP_400_BAD_REQUEST
+            )
 
         return super().destroy(request, *args, **kwargs)
 
     def get_permissions(self):
-        if self.action == 'create':
+        if self.action == "create":
             return [AllowAny()]
         return [IsAuthenticated(), IsOwnerOrAdmin()]
