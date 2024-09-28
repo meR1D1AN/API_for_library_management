@@ -58,7 +58,7 @@
 
 Убедитесь, что у вас установлен Docker и Docker Compose. Для запуска контейнеров используйте следующую команду:
 - ```bash
-  docker-compose up --build
+  docker-compose up -d --build
   ```
   
 ### Docker Compose поднимет два сервиса:
