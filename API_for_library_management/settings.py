@@ -12,7 +12,7 @@ load_dotenv(dotenv_path=dot_env)
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG") == "True"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["mer1d1an.ru", "localhost"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -99,6 +99,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
