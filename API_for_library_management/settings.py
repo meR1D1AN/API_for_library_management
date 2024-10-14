@@ -12,7 +12,7 @@ load_dotenv(dotenv_path=dot_env)
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG") == "True"
 
-ALLOWED_HOSTS = ["mer1d1an.ru", "localhost"]
+ALLOWED_HOSTS = ["mer1d1an.ru", "31.129.110.83", "localhost"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
